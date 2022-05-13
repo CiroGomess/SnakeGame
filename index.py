@@ -23,6 +23,10 @@ y_controle = 0
 x_fruta = randint(40, 600)
 y_fruta = randint(50, 430)
 
+red = randint(0, 255)
+green = randint(0, 255)
+blue = randint(0, 255)
+
 pontos = 0
 
 lista_cobra = []
@@ -108,7 +112,7 @@ while True:
 
     cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
     fruta = pygame.draw.rect(
-        tela, (255, 0, 0), (x_fruta, y_fruta, 20, 20))
+        tela, (red, green, blue), (x_fruta, y_fruta, 20, 20))
 
     # Colisao - mudando posição do ret_verde
     if cobra.colliderect(fruta):
@@ -117,6 +121,9 @@ while True:
 
         pontos = pontos + 1
         comprimento_inicial = comprimento_inicial + 1
+        red = randint(0, 255)
+        green = randint(0, 255)
+        blue = randint(0, 255)
 
     # Criando corpo da cobra
     lista_cabeca = []
