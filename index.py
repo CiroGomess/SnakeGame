@@ -1,3 +1,4 @@
+from ast import While
 from asyncio import events
 import pygame
 from pygame.locals import *
@@ -26,6 +27,7 @@ pontos = 0
 
 lista_cobra = []
 comprimento_inicial = 5
+morreu = False
 
 
 fonte = pygame.font.SysFont('arial', 18, True, False)
@@ -39,6 +41,20 @@ def aumentando_cobra(lista_cobra):
     for XeY in lista_cobra:
         # XeY = []
         pygame.draw.rect(tela, (0, 255, 0), (XeY[0], XeY[1], 20, 20))
+
+
+def reiniciar_jogo():
+    global pontos, comprimento_inicial, x_cobra, y_cobra, lista_cabeca, lista_cobra, x_fruta, y_fruta, morreu
+
+    pontos = 0
+    comprimento_inicial = 5
+    x_cobra = int(largura / 2)
+    y_cobra = int(altura / 2)
+    lista_cobra = []
+    lista_cabeca = []
+    x_fruta = randint(40, 600)
+    y_fruta = randint(50, 430)
+    morreu = False
 
 
 # loop do jogo
@@ -107,6 +123,39 @@ while True:
     lista_cabeca.append(x_cobra)
     lista_cabeca.append(y_cobra)
     lista_cobra.append(lista_cabeca)
+
+    # verificando se a cobra bateu no proprio corpo
+    if lista_cobra.count(lista_cabeca) > 1:
+
+        font_2 = pygame.font.SysFont("arial", 20, True, False)
+        messagem = "Game over! Pressione a  trcla R para jogar novamente."
+        text_formatado = font_2.render(messagem, True, (0, 0, 0))
+        ret_texto = text_formatado.get_rect()
+
+        morreu = True
+        while morreu:
+            tela.fill((255, 255, 255))
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    exit()
+                if event.type == KEYDOWN:
+                    if event.key == K_r:
+                        reiniciar_jogo()
+            ret_texto.center = (largura // 2, altura // 2)
+            tela.blit(text_formatado, ret_texto)
+            pygame.display.update()
+
+    # Verificando se a cobra sai da tela
+    if x_cobra > largura:
+        x = 0
+    if x_cobra < 0:
+        x_cobra = largura
+
+    if y_cobra < 0:
+        y_cobra = altura
+    if y_cobra > altura:
+        y_cobra = 0
 
     if len(lista_cobra) > comprimento_inicial:
         del lista_cobra[0]
