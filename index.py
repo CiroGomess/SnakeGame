@@ -14,15 +14,21 @@ altura = 480
 x_cobra = int(largura / 2)
 y_cobra = int(altura / 2)
 
+velocidade = 10
+x_controle = velocidade
+y_controle = 0
+
+
 x_fruta = randint(40, 600)
 y_fruta = randint(50, 430)
 
 pontos = 0
 
 lista_cobra = []
+comprimento_inicial = 5
+
 
 fonte = pygame.font.SysFont('arial', 18, True, False)
-
 # Defenindo largura e altura da tela
 tela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('Snake Game')  # Definindo nome do jogo
@@ -38,7 +44,7 @@ def aumentando_cobra(lista_cobra):
 # loop do jogo
 while True:
 
-    relogio.tick(60)  # Frame
+    relogio.tick(30)  # Frame
     tela.fill((255, 255, 255))  # tela preta
 
     potuacao = f'Pontos: {pontos}'
@@ -52,23 +58,37 @@ while True:
             pygame.quit()
             exit()
 
-    # Movimentação por telcas
-    if pygame.key.get_pressed()[K_a]:
-        x_cobra = x_cobra - 20
-    if pygame.key.get_pressed()[K_LEFT]:
-        x_cobra = x_cobra - 20
-    if pygame.key.get_pressed()[K_d]:
-        x_cobra = x_cobra + 20
-    if pygame.key.get_pressed()[K_RIGHT]:
-        x_cobra = x_cobra + 20
-    if pygame.key.get_pressed()[K_w]:
-        y_cobra = y_cobra - 20
-    if pygame.key.get_pressed()[K_UP]:
-        y_cobra = y_cobra - 20
-    if pygame.key.get_pressed()[K_s]:
-        y_cobra = y_cobra + 20
-    if pygame.key.get_pressed()[K_DOWN]:
-        y_cobra = y_cobra + 20
+        if event.type == KEYDOWN:
+            if event.key == K_a:
+                if x_controle == velocidade:
+                    pass
+                else:
+                    x_controle = -velocidade
+                    y_controle = 0
+
+            if event.key == K_d:
+                if x_controle == -velocidade:
+                    pass
+                else:
+                    x_controle = +velocidade
+                    y_controle = 0
+
+            if event.key == K_w:
+                if y_controle == velocidade:
+                    pass
+                else:
+                    x_controle = 0
+                    y_controle = -velocidade
+
+            if event.key == K_s:
+                if y_controle == velocidade:
+                    pass
+                else:
+                    x_controle = 0
+                    y_controle = velocidade
+
+    x_cobra = x_cobra + x_controle
+    y_cobra = y_cobra + y_controle
 
     cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
     fruta = pygame.draw.rect(
@@ -80,14 +100,17 @@ while True:
         y_fruta = randint(50, 430)
 
         pontos = pontos + 1
+        comprimento_inicial = comprimento_inicial + 1
 
     # Criando corpo da cobra
     lista_cabeca = []
     lista_cabeca.append(x_cobra)
     lista_cabeca.append(y_cobra)
     lista_cobra.append(lista_cabeca)
-    aumentando_cobra(lista_cobra)
 
+    if len(lista_cobra) > comprimento_inicial:
+        del lista_cobra[0]
+    aumentando_cobra(lista_cobra)
 
     tela.blit(textoFormatado, (20, 20))
     pygame.display.update()
