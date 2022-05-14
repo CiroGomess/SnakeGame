@@ -8,6 +8,14 @@ from random import randint
 
 pygame.init()  # Iniciando o pygame
 
+# Musica do jogo
+
+pygame.mixer.music.set_volume(0.5)
+musica_fundo = pygame.mixer.music.load('./music/Linn Friberg - Learning From Mistakes.mp3')
+pygame.mixer.music.play(-1)
+
+som_colisao = pygame.mixer.Sound('./music/smw_yoshi_spit.wav')
+
 largura = 640
 altura = 480
 
@@ -124,6 +132,7 @@ while True:
         red = randint(0, 255)
         green = randint(0, 255)
         blue = randint(0, 255)
+        som_colisao.play()
 
     # Criando corpo da cobra
     lista_cabeca = []
