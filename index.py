@@ -144,7 +144,7 @@ while True:
     if lista_cobra.count(lista_cabeca) > 1:
 
         font_2 = pygame.font.SysFont("arial", 20, True, False)
-        messagem = "Game over! Pressione a  trcla R para jogar novamente."
+        messagem = "Game over! Pressione a tecla R para jogar novamente."
         text_formatado = font_2.render(messagem, True, (0, 0, 0))
         ret_texto = text_formatado.get_rect()
 
