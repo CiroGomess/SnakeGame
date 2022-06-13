@@ -8,9 +8,7 @@
   <img src="http://img.shields.io/static/v1?label=STATUS&message=FINALIZADO&color=GREEN&style=for-the-badge"/>
 </p>
 
-# Flappybird e IA
 Esse projeto foi desenvolvido para fins de estudos com pygame.
-
 <p align="center">
 <img width="400" heigth="250" src="to_readme/snake.gif"/>
 </p>
