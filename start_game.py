@@ -18,40 +18,39 @@ pygame.display.set_caption('Snake Game')  # Definindo nome do jogo
 
 relogio = pygame.time.Clock()  # Frame
 
-
+img_fundo = pygame.image.load('./imgs/bg.jpg').convert()
 
 # loop do jogo
 while True:
 
     relogio.tick(10)  # Frame
     tela.fill((255, 255, 255))  # tela preta
-    
+
     font_2 = pygame.font.SysFont("arial", 20, True, False)
-    
+
+    tela.blit(img_fundo, (0, 0))
+
     messagem = "A -  Snaker Game"
     messagem_2 = "B -  Snaker Game"
     messagem_3 = "C -  Snaker Game"
-   
 
-    text_formatado = font_2.render(messagem, True, (0, 0, 0))
-    text_formatado = font_2.render(messagem_2, True, (0, 0, 0))
-    text_formatado = font_2.render(messagem_3, True, (0, 0, 0))
-    
+    text_formatado = font_2.render(messagem, True, (0, 139, 139))
+    text_formatado = font_2.render(messagem_2, True, (0, 139, 139))
+    text_formatado = font_2.render(messagem_3, True, (0, 139, 139))
+
     ret_texto = text_formatado.get_rect()
     ret_texto_2 = text_formatado.get_rect()
     ret_texto_3 = text_formatado.get_rect()
 
-
     ret_texto.center = (largura // 2, altura // 2)
     ret_texto_2.center = (largura // 2, altura // 2 + 25)
     ret_texto_3.center = (largura // 2, altura // 2 - 25)
-  
+
     tela.blit(text_formatado, ret_texto)
     tela.blit(text_formatado, ret_texto_2)
     tela.blit(text_formatado, ret_texto_3)
 
     controle_jogo = 0
-  
 
     for event in pygame.event.get():  # Detectando se algum evento ocorreu
 
@@ -60,12 +59,10 @@ while True:
             pygame.quit()
             exit()
         if event.type == KEYDOWN:
-           
+
             if event.key == K_a:
                 controle_jogo = 1
                 if controle_jogo == 1:
                     skaner_gamer(controle_jogo)
-               
-
 
     pygame.display.update()
