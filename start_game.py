@@ -20,6 +20,11 @@ pygame.display.set_caption('Snake Game')  # Definindo nome do jogo
 relogio = pygame.time.Clock()  # Frame
 
 img_fundo = pygame.image.load('./imgs/bg.jpg').convert()
+  
+
+pygame.mixer.music.set_volume(0.5)
+musica_fundo = pygame.mixer.music.load('./music/HoliznaCC0 - Light At The End Of The Tunnel.mp3')
+pygame.mixer.music.play(-1)
 
 # loop do jogo
 while True:
