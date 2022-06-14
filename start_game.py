@@ -31,7 +31,7 @@ while True:
     tela.blit(img_fundo, (0, 0))
 
     messagem_1 = "C -  Snaker Game"
-    messagem_2 = "B -  Snaker Game"
+    messagem_2 = "B -  Space Attack"
     messagem_3 = "A -  Snaker Game"
 
     text_formatado_01 = font_2.render(messagem_1, True, (0, 139, 139))
