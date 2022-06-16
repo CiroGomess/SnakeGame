@@ -42,9 +42,10 @@ def skaner_gamer(num):
     comprimento_inicial = 5
     morreu = False
 
-    img_py_fruta = pygame.image.load('./imgs/img_py.png').convert()
-
-    bomba = pygame.image.load('./imgs/bomba.png').convert()
+   
+    img_py_fruta = pygame.image.load('./imgs/img_py.png') # Fruta_python
+    bomba = pygame.image.load('./imgs/bomba.png')  # Bomba
+    bg_img = pygame.image.load('./imgs/bg_snaker.png')   # Background
 
     img_py_fruta = pygame.transform.scale(img_py_fruta, (20, 20))
     bomba = pygame.transform.scale(bomba, (20, 20))
@@ -54,6 +55,8 @@ def skaner_gamer(num):
     tela = pygame.display.set_mode((largura, altura))
     pygame.display.set_caption('Snake Game')  # Definindo nome do jogo
     relogio = pygame.time.Clock()  # Frame
+
+    pygame.display.set_caption('Sprites')
 
     if num == 1:
 
@@ -70,7 +73,7 @@ def skaner_gamer(num):
                 relogio.tick(30)
             elif pontos < 20:
                 relogio.tick(35)
-            elif pontos < 25:
+            elif pontos >= 20:
                 relogio.tick(40)
 
         # loop do jogo
@@ -79,9 +82,11 @@ def skaner_gamer(num):
             # Aumenando dificuldade do jogo de acordo com a pontuação
             dificuldade_jogo()
 
-            tela.fill((255, 255, 255))  # tela preta
+            # add background
+            tela.blit(bg_img,(0,0))
+
             potuacao = f'Pontos: {pontos}'
-            textoFormatado = fonte.render(potuacao, True, (0, 0, 0))
+            textoFormatado = fonte.render(potuacao, True, (255, 255, 255))
 
             for event in pygame.event.get():
 
