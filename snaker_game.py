@@ -1,5 +1,6 @@
 from ast import While
 from asyncio import events
+from email.mime import image
 import pygame
 
 from pygame.locals import *
@@ -12,7 +13,6 @@ def skaner_gamer(num):
     pygame.init()  # Iniciando o pygame
 
     # Musica do jogo
-
     pygame.mixer.music.set_volume(0.5)
     musica_fundo = pygame.mixer.music.load('./music/Linn Friberg - Learning From Mistakes.mp3')
     pygame.mixer.music.play(-1)
@@ -44,6 +44,8 @@ def skaner_gamer(num):
     comprimento_inicial = 5
     morreu = False
 
+    img_py_fruta = pygame.image.load('./imgs/img_py.png').convert()
+    img_py_fruta = pygame.transform.scale(img_py_fruta, (20 , 20))
 
     fonte = pygame.font.SysFont('arial', 18, True, False)
     # Defenindo largura e altura da tela
@@ -55,7 +57,6 @@ def skaner_gamer(num):
 
         def aumentando_cobra(lista_cobra):
             for XeY in lista_cobra:
-                # XeY = []
                 pygame.draw.rect(tela, (0, 255, 0), (XeY[0], XeY[1], 20, 20))
 
         # loop do jogo
@@ -72,16 +73,13 @@ def skaner_gamer(num):
                 relogio.tick(30)  # Frame
           
             if pontos >= 30:
-                relogio.tick(30)  # Frame
-
+                relogio.tick(35)  # Frame
 
             tela.fill((255, 255, 255))  # tela preta
-
             potuacao = f'Pontos: {pontos}'
-
             textoFormatado = fonte.render(potuacao, True, (0, 0, 0))
 
-            for event in pygame.event.get():  # Detectando se algum evento ocorreu
+            for event in pygame.event.get():
 
                 # Evento de fechar o jogo
                 if event.type == QUIT:
@@ -121,11 +119,11 @@ def skaner_gamer(num):
             y_cobra = y_cobra + y_controle
 
             cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
-            fruta = pygame.draw.rect(
-                tela, (red, green, blue), (x_fruta, y_fruta, 20, 20))
+            fruta = tela.blit(img_py_fruta, (x_fruta, y_fruta))
 
             # Colisao - mudando posição do ret_verde
             if cobra.colliderect(fruta):
+                # Nascimento do local da fruta 
                 x_fruta = randint(40, 600)
                 y_fruta = randint(50, 430)
 
@@ -176,7 +174,7 @@ def skaner_gamer(num):
 
             # Verificando se a cobra sai da tela
             if x_cobra > largura:
-                x = 0
+                x_cobra = 0
             if x_cobra < 0:
                 x_cobra = largura
 
@@ -190,4 +188,5 @@ def skaner_gamer(num):
             aumentando_cobra(lista_cobra)
 
             tela.blit(textoFormatado, (20, 20))
+           
             pygame.display.update()
