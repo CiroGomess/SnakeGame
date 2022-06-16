@@ -14,9 +14,9 @@ def skaner_gamer(num):
 
     # Musica do jogo
     pygame.mixer.music.set_volume(0.5)
-    musica_fundo = pygame.mixer.music.load('./music/Linn Friberg - Learning From Mistakes.mp3')
+    musica_fundo = pygame.mixer.music.load(
+        './music/Linn Friberg - Learning From Mistakes.mp3')
     pygame.mixer.music.play(-1)
-
     som_colisao = pygame.mixer.Sound('./music/smw_yoshi_spit.wav')
 
     largura = 640
@@ -30,13 +30,11 @@ def skaner_gamer(num):
     x_controle = velocidade
     y_controle = 0
 
-
     x_fruta = randint(40, 600)
     y_fruta = randint(50, 430)
 
-    red = randint(0, 255)
-    green = randint(0, 255)
-    blue = randint(0, 255)
+    x_bomba = randint(40, 600)
+    y_bomba = randint(50, 430)
 
     pontos = 0
 
@@ -45,7 +43,10 @@ def skaner_gamer(num):
     morreu = False
 
     img_py_fruta = pygame.image.load('./imgs/img_py.png').convert()
-    img_py_fruta = pygame.transform.scale(img_py_fruta, (20 , 20))
+    bomba = pygame.image.load('./imgs/bomba.png').convert()
+
+    img_py_fruta = pygame.transform.scale(img_py_fruta, (20, 20))
+    bomba = pygame.transform.scale(bomba, (20, 20))
 
     fonte = pygame.font.SysFont('arial', 18, True, False)
     # Defenindo largura e altura da tela
@@ -57,23 +58,24 @@ def skaner_gamer(num):
 
         def aumentando_cobra(lista_cobra):
             for XeY in lista_cobra:
-                pygame.draw.rect(tela, (0, 255, 0), (XeY[0], XeY[1], 20, 20))
+                pygame.draw.rect(tela, (0, 255, 255), (XeY[0], XeY[1], 20, 20))
+
+        def dificuldade_jogo():
+            if pontos < 10:
+                relogio.tick(18)  
+            if pontos < 20:
+                relogio.tick(23)  
+            if pontos < 30:
+                relogio.tick(30)  
+            if pontos >= 30:
+                relogio.tick(35) 
 
         # loop do jogo
         while True:
 
             # Aumenando dificuldade do jogo de acordo com a pontuação
-            if pontos < 10:
-                relogio.tick(18)  # Frame
-          
-            if pontos < 20:
-                relogio.tick(23)  # Frame
-          
-            if pontos < 30:
-                relogio.tick(30)  # Frame
-          
-            if pontos >= 30:
-                relogio.tick(35)  # Frame
+           
+            dificuldade_jogo()
 
             tela.fill((255, 255, 255))  # tela preta
             potuacao = f'Pontos: {pontos}'
@@ -118,21 +120,51 @@ def skaner_gamer(num):
             x_cobra = x_cobra + x_controle
             y_cobra = y_cobra + y_controle
 
-            cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
+            cobra = pygame.draw.rect(
+                tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
             fruta = tela.blit(img_py_fruta, (x_fruta, y_fruta))
+            get_bomba = tela.blit(bomba, (x_bomba, y_bomba))
 
-            # Colisao - mudando posição do ret_verde
+            # Colisao - mudando posição da fruta_python
             if cobra.colliderect(fruta):
-                # Nascimento do local da fruta 
+                # Nascimento do local da fruta
                 x_fruta = randint(40, 600)
                 y_fruta = randint(50, 430)
 
                 pontos = pontos + 1
                 comprimento_inicial = comprimento_inicial + 1
-                red = randint(0, 255)
-                green = randint(0, 255)
-                blue = randint(0, 255)
                 som_colisao.play()
+
+            # Colisao com a bomba
+            if cobra.colliderect(get_bomba):
+                # Nascimento do local da fruta
+                font_2 = pygame.font.SysFont("arial", 20, True, False)
+                messagem = "Você colidiu com a bomba! reiniciar o jogo R"
+                text_formatado = font_2.render(messagem, True, (0, 0, 0))
+                ret_texto = text_formatado.get_rect()
+
+                morreu = True
+                while morreu:
+                    tela.fill((255, 255, 255))
+                    for event in pygame.event.get():
+                        if event.type == QUIT:
+                            pygame.quit()
+                            exit()
+                        if event.type == KEYDOWN:
+                            if event.key == K_r:
+                                pontos = 0
+                                comprimento_inicial = 5
+                                x_cobra = int(largura / 2)
+                                y_cobra = int(altura / 2)
+                                lista_cobra = []
+                                lista_cabeca = []
+                                x_fruta = randint(40, 600)
+                                y_fruta = randint(50, 430)
+                                morreu = False
+
+                    ret_texto.center = (largura // 2, altura // 2)
+                    tela.blit(text_formatado, ret_texto)
+                    pygame.display.update()
 
             # Criando corpo da cobra
             lista_cabeca = []
@@ -166,27 +198,15 @@ def skaner_gamer(num):
                                 x_fruta = randint(40, 600)
                                 y_fruta = randint(50, 430)
                                 morreu = False
-                            
 
                     ret_texto.center = (largura // 2, altura // 2)
                     tela.blit(text_formatado, ret_texto)
                     pygame.display.update()
-
-            # Verificando se a cobra sai da tela
-            if x_cobra > largura:
-                x_cobra = 0
-            if x_cobra < 0:
-                x_cobra = largura
-
-            if y_cobra < 0:
-                y_cobra = altura
-            if y_cobra > altura:
-                y_cobra = 0
+           
 
             if len(lista_cobra) > comprimento_inicial:
                 del lista_cobra[0]
             aumentando_cobra(lista_cobra)
 
             tela.blit(textoFormatado, (20, 20))
-           
             pygame.display.update()
