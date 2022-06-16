@@ -3,7 +3,6 @@ from pygame.locals import *
 from sys import exit  # função para fechar janela
 
 from snaker_game import skaner_gamer
-from pong import pong
 
 
 pygame.init()  # Iniciando o pygame
@@ -70,9 +69,6 @@ while True:
                 controle_jogo = 1
                 if controle_jogo == 1:
                     skaner_gamer(controle_jogo)
-            if event.key == K_b:
-                controle_jogo = 2
-                if controle_jogo == 2:
-                    pong(controle_jogo)
+           
 
     pygame.display.update()

@@ -43,6 +43,7 @@ def skaner_gamer(num):
     morreu = False
 
     img_py_fruta = pygame.image.load('./imgs/img_py.png').convert()
+
     bomba = pygame.image.load('./imgs/bomba.png').convert()
 
     img_py_fruta = pygame.transform.scale(img_py_fruta, (20, 20))
@@ -61,20 +62,21 @@ def skaner_gamer(num):
                 pygame.draw.rect(tela, (0, 255, 255), (XeY[0], XeY[1], 20, 20))
 
         def dificuldade_jogo():
-            if pontos < 10:
-                relogio.tick(18)  
-            if pontos < 20:
-                relogio.tick(23)  
-            if pontos < 30:
-                relogio.tick(30)  
-            if pontos >= 30:
-                relogio.tick(35) 
+            if pontos < 5:
+                relogio.tick(18)
+            elif pontos < 10:
+                relogio.tick(23)
+            elif pontos < 15:
+                relogio.tick(30)
+            elif pontos < 20:
+                relogio.tick(35)
+            elif pontos < 25:
+                relogio.tick(40)
 
         # loop do jogo
         while True:
 
             # Aumenando dificuldade do jogo de acordo com a pontuação
-           
             dificuldade_jogo()
 
             tela.fill((255, 255, 255))  # tela preta
@@ -122,6 +124,7 @@ def skaner_gamer(num):
 
             cobra = pygame.draw.rect(
                 tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
+
             fruta = tela.blit(img_py_fruta, (x_fruta, y_fruta))
             get_bomba = tela.blit(bomba, (x_bomba, y_bomba))
 
@@ -130,6 +133,9 @@ def skaner_gamer(num):
                 # Nascimento do local da fruta
                 x_fruta = randint(40, 600)
                 y_fruta = randint(50, 430)
+
+                x_bomba = randint(40, 600)
+                y_bomba = randint(50, 430)
 
                 pontos = pontos + 1
                 comprimento_inicial = comprimento_inicial + 1
@@ -202,7 +208,16 @@ def skaner_gamer(num):
                     ret_texto.center = (largura // 2, altura // 2)
                     tela.blit(text_formatado, ret_texto)
                     pygame.display.update()
-           
+
+            # Verificando se a cobra sai da tela
+            if x_cobra > largura:
+                x_cobra = 0
+            if x_cobra < 0:
+                x_cobra = largura
+            if y_cobra < 0:
+                y_cobra = altura
+            if y_cobra > altura:
+                y_cobra = 0
 
             if len(lista_cobra) > comprimento_inicial:
                 del lista_cobra[0]
