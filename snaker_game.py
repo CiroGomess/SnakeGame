@@ -51,6 +51,7 @@ def skaner_gamer(num):
     bomba = pygame.transform.scale(bomba, (20, 20))
 
     fonte = pygame.font.SysFont('arial', 18, True, False)
+
     # Defenindo largura e altura da tela
     tela = pygame.display.set_mode((largura, altura))
     pygame.display.set_caption('Snake Game')  # Definindo nome do jogo
@@ -76,6 +77,7 @@ def skaner_gamer(num):
             elif pontos >= 20:
                 relogio.tick(40)
 
+        
         # loop do jogo
         while True:
 
@@ -151,12 +153,12 @@ def skaner_gamer(num):
                 # Nascimento do local da fruta
                 font_2 = pygame.font.SysFont("arial", 20, True, False)
                 messagem = "Você colidiu com a bomba! reiniciar o jogo R"
-                text_formatado = font_2.render(messagem, True, (0, 0, 0))
+                text_formatado = font_2.render(messagem, True, (255, 255, 255))
                 ret_texto = text_formatado.get_rect()
 
                 morreu = True
                 while morreu:
-                    tela.fill((255, 255, 255))
+                    tela.blit(bg_img,(0,0))
                     for event in pygame.event.get():
                         if event.type == QUIT:
                             pygame.quit()
@@ -188,12 +190,12 @@ def skaner_gamer(num):
 
                 font_2 = pygame.font.SysFont("arial", 20, True, False)
                 messagem = "Game over! Pressione a tecla R para jogar novamente."
-                text_formatado = font_2.render(messagem, True, (0, 0, 0))
+                text_formatado = font_2.render(messagem, True, (255, 255, 255))
                 ret_texto = text_formatado.get_rect()
 
                 morreu = True
                 while morreu:
-                    tela.fill((255, 255, 255))
+                    tela.blit(bg_img,(0,0))
                     for event in pygame.event.get():
                         if event.type == QUIT:
                             pygame.quit()

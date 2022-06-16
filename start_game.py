@@ -35,24 +35,15 @@ while True:
 
     tela.blit(img_fundo, (0, 0))
 
-    messagem_1 = "C -  Snaker Game"
-    messagem_2 = "B -  Space Attack"
+
     messagem_3 = "A -  Snaker Game"
 
-    text_formatado_01 = font_2.render(messagem_1, True, (0, 139, 139))
-    text_formatado_02 = font_2.render(messagem_2, True, (0, 139, 139))
+    
     text_formatado_03 = font_2.render(messagem_3, True, (0, 139, 139))
-
-    ret_texto = text_formatado_01.get_rect()
-    ret_texto_2 = text_formatado_02.get_rect()
     ret_texto_3 = text_formatado_03.get_rect()
+    ret_texto_3.center = (largura // 2, altura // 2 - 15)
 
-    ret_texto.center = (largura // 2, altura // 2)
-    ret_texto_2.center = (largura // 2, altura // 2 + 25)
-    ret_texto_3.center = (largura // 2, altura // 2 - 25)
-
-    tela.blit(text_formatado_01, ret_texto)
-    tela.blit(text_formatado_02, ret_texto_2)
+ 
     tela.blit(text_formatado_03, ret_texto_3)
 
     controle_jogo = 0
