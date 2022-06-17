@@ -55,8 +55,7 @@ def skaner_gamer(num):
     pygame.display.set_caption('Snake Game')  # Definindo nome do jogo
     relogio = pygame.time.Clock()  # Frame
 
-    pygame.display.set_caption('Sprites')
-
+   
     if num == 1:
 
         def aumentando_cobra(lista_cobra):
