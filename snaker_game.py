@@ -1,6 +1,4 @@
-from ast import While
-from asyncio import events
-from email.mime import image
+
 import pygame
 
 from pygame.locals import *
@@ -80,7 +78,7 @@ def skaner_gamer(num):
         
         # loop do jogo
         while True:
-
+          
             # Aumenando dificuldade do jogo de acordo com a pontuação
             dificuldade_jogo()
 
@@ -153,8 +151,13 @@ def skaner_gamer(num):
                 # Nascimento do local da fruta
                 font_2 = pygame.font.SysFont("arial", 20, True, False)
                 messagem = "Você colidiu com a bomba! reiniciar o jogo R"
+                messagem_2 = f"Seus {potuacao}"
+          
                 text_formatado = font_2.render(messagem, True, (255, 255, 255))
+                text_formatado_2 = font_2.render(messagem_2, True, (255, 255, 255))
+             
                 ret_texto = text_formatado.get_rect()
+                ret_texto_2 = text_formatado_2.get_rect()
 
                 morreu = True
                 while morreu:
@@ -176,7 +179,9 @@ def skaner_gamer(num):
                                 morreu = False
 
                     ret_texto.center = (largura // 2, altura // 2)
+                    ret_texto_2.center = (largura // 2, 150)
                     tela.blit(text_formatado, ret_texto)
+                    tela.blit(text_formatado_2, ret_texto_2)
                     pygame.display.update()
 
             # Criando corpo da cobra
@@ -189,9 +194,14 @@ def skaner_gamer(num):
             if lista_cobra.count(lista_cabeca) > 1:
 
                 font_2 = pygame.font.SysFont("arial", 20, True, False)
-                messagem = "Game over! Pressione a tecla R para jogar novamente."
+                messagem = "GAME OVER! reiniciar o jogo R"
+                messagem_2 = f"Seus {potuacao}"
+          
                 text_formatado = font_2.render(messagem, True, (255, 255, 255))
+                text_formatado_2 = font_2.render(messagem_2, True, (255, 255, 255))
+             
                 ret_texto = text_formatado.get_rect()
+                ret_texto_2 = text_formatado_2.get_rect()
 
                 morreu = True
                 while morreu:
@@ -213,7 +223,9 @@ def skaner_gamer(num):
                                 morreu = False
 
                     ret_texto.center = (largura // 2, altura // 2)
+                    ret_texto_2.center = (largura // 2, 150)
                     tela.blit(text_formatado, ret_texto)
+                    tela.blit(text_formatado_2, ret_texto_2)
                     pygame.display.update()
 
             # Verificando se a cobra sai da tela

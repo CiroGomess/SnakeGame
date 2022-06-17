@@ -27,7 +27,6 @@ pygame.mixer.music.play(-1)
 
 # loop do jogo
 while True:
-
     relogio.tick(10)  # Frame
     tela.fill((255, 255, 255))  # tela preta
 
