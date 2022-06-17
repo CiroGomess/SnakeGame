@@ -21,7 +21,7 @@ relogio = pygame.time.Clock()  # Frame
 img_fundo = pygame.image.load('./imgs/bg.jpg').convert()
   
 
-pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.set_volume(0.3)
 musica_fundo = pygame.mixer.music.load('./music/HoliznaCC0 - Light At The End Of The Tunnel.mp3')
 pygame.mixer.music.play(-1)
 

@@ -11,7 +11,7 @@ def skaner_gamer(num):
     pygame.init()  # Iniciando o pygame
 
     # Musica do jogo
-    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.set_volume(0.3)
     musica_fundo = pygame.mixer.music.load(
         './music/Linn Friberg - Learning From Mistakes.mp3')
     pygame.mixer.music.play(-1)
